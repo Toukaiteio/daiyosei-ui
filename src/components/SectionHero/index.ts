@@ -1,0 +1,7 @@
+export { default as SectionHero } from './SectionHero.vue'
+export { default as VerticalTag } from './VerticalTag.vue'
+export { default as SerifTitleBlock } from './SerifTitleBlock.vue'
+export { default as ProgressBar } from './ProgressBar.vue'
+export { default as PrintMarkers } from './PrintMarkers.vue'
+export { default as PolaroidCard } from './PolaroidCard.vue'
+export { default as CollageCaption } from './CollageCaption.vue'

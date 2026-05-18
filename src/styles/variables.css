@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Design Tokens (CSS Custom Properties)
+   ========================================================================== */
+
+:root {
+  --bg-cirno-light: #e3edf7;
+  --accent-cirno-blue: #4f79a3;
+  --accent-cirno-red: #c85a5a;
+  --accent-cirno-navy: #32465a;
+
+  --text-cirno-dark: #2a3b4c;
+  --text-cirno-gray: #6e869c;
+
+  --bg-primary: var(--bg-cirno-light);
+  --bg-secondary: #ffffff;
+  --border-alpha: rgba(79, 121, 163, 0.25);
+  --grid-color: rgba(79, 121, 163, 0.08);
+  --card-bg: #f4f8fb;
+  --card-border: rgba(79, 121, 163, 0.2);
+  --glow-color: transparent;
+  --text-primary: var(--text-cirno-dark);
+  --text-gray: var(--text-cirno-gray);
+
+  --accent-orange: var(--accent-cirno-red);
+  --accent-yellow: var(--accent-cirno-navy);
+  --bg-cobalt-blue: var(--accent-cirno-blue);
+
+  --collage-img: url('/character_light.png');
+}
+
+.theme-dark {
+  --bg-daiyosei-dark: #0c151c;
+  --accent-daiyosei-green: #5c9e82;
+  --accent-daiyosei-gold: #b8a37d;
+  --accent-daiyosei-cyan: #62b5ba;
+
+  --text-daiyosei-light: #e1e8eb;
+  --text-daiyosei-gray: #6f818c;
+
+  --bg-primary: var(--bg-daiyosei-dark);
+  --bg-secondary: #121c24;
+  --border-alpha: rgba(92, 158, 130, 0.25);
+  --grid-color: rgba(92, 158, 130, 0.06);
+  --card-bg: #0c151c;
+  --card-border: rgba(92, 158, 130, 0.18);
+  --glow-color: transparent;
+  --text-primary: var(--text-daiyosei-light);
+  --text-gray: var(--text-daiyosei-gray);
+
+  --accent-orange: var(--accent-daiyosei-gold);
+  --accent-yellow: var(--accent-daiyosei-cyan);
+  --bg-cobalt-blue: var(--accent-daiyosei-green);
+
+  --collage-img: url('/character.png');
+}

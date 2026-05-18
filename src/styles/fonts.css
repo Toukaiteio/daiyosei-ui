@@ -1,0 +1,37 @@
+/* ==========================================================================
+   DAIYOSEI UI KIT - Typography Stack & Localizations (CSS Variables)
+   ========================================================================== */
+
+:root {
+  /* Default / Chinese Language Font Stack: English handwriting first! */
+  --font-handwritten: 'Architects Daughter', 'Caveat', 'ZCOOL KuaiLe', 'KaiTi', 'STKaiti', 'Yusei Magic', 'Klee One', 'Segoe Print', 'Comic Sans MS', cursive;
+  --font-serif: 'Playfair Display', 'Noto Serif SC', serif;
+}
+
+/* Japanese Language override: English handwriting first, then Yusei Magic! */
+html[lang="ja"] {
+  --font-handwritten: 'Architects Daughter', 'Caveat', 'Yusei Magic', 'Klee One', 'ZCOOL KuaiLe', 'Segoe Print', 'Comic Sans MS', cursive;
+}
+
+.font-serif {
+  font-family: var(--font-serif) !important;
+  font-weight: 900;
+}
+
+.font-tech {
+  font-family: 'Architects Daughter', 'Caveat', cursive;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+/* High-priority Utility Classes mapped to CJK-resilient font stacks */
+.font-handwritten,
+.font-handwritten-zh,
+.font-handwritten-jp {
+  font-family: var(--font-handwritten) !important;
+}
+
+.font-handwritten-jp {
+  font-weight: 500 !important;
+}

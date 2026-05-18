@@ -1,0 +1,142 @@
+/* ==========================================================================
+   DAIYOSEI UI KIT - Core Stylesheet
+   ========================================================================== */
+
+@import './variables.css';
+@import './fonts.css';
+@import './reset.css';
+
+/* --------------------------------------------------------------------------
+   Paper Texture & Vignette Overlays
+   -------------------------------------------------------------------------- */
+
+.paper-pulp-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)' opacity='0.35'/%3E%3C/svg%3E");
+}
+
+.theme-dark .paper-pulp-overlay {
+  mix-blend-mode: overlay;
+  opacity: 0.12;
+}
+
+.vignette-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 9989;
+  background: radial-gradient(circle at center, transparent 40%, rgba(27, 45, 66, 0.05) 100%);
+  transition: background 0.4s ease;
+}
+
+.theme-dark .vignette-overlay {
+  background: radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Effect Layers (Grain, Scanlines, Grid)
+   -------------------------------------------------------------------------- */
+
+.grain-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+  transition: opacity 0.3s;
+}
+
+.grain-active .grain-overlay {
+  opacity: 0.065;
+  animation: grain-shift 0.15s steps(2) infinite;
+}
+
+@keyframes grain-shift {
+  0% { filter: url(#noiseFilter) translate(0, 0); }
+  50% { filter: url(#noiseFilter) translate(-1%, 1%); }
+  100% { filter: url(#noiseFilter) translate(1%, -1%); }
+}
+
+.scanline-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: repeating-linear-gradient(
+    rgba(18, 16, 16, 0) 0px,
+    rgba(18, 16, 16, 0.08) 1px,
+    rgba(18, 16, 16, 0) 2px
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.scanlines-active .scanline-overlay {
+  opacity: 1;
+}
+
+.grid-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-image:
+    linear-gradient(var(--grid-color) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--grid-color) 1.5px, transparent 1.5px);
+  background-size: 40px 40px;
+  background-position: top left;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0 40px 60px 40px;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Hollow Background Text
+   -------------------------------------------------------------------------- */
+
+.hollow-bg-text {
+  position: absolute;
+  top: 60px;
+  right: 5%;
+  font-size: 14vw;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--border-alpha);
+  opacity: 0.18;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  text-transform: uppercase;
+}

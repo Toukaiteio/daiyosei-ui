@@ -1,0 +1,43 @@
+{
+  "name": "daiyosei-ui",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/daiyosei-ui.js",
+  "module": "./dist/daiyosei-ui.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/daiyosei-ui.js",
+      "default": "./dist/daiyosei-ui.js"
+    },
+    "./components/*": {
+      "types": "./dist/types/components/*/index.d.ts",
+      "import": "./dist/components/*.js",
+      "default": "./dist/components/*.js"
+    },
+    "./composables/*": {
+      "types": "./dist/types/composables/*.d.ts",
+      "import": "./dist/composables/*.js",
+      "default": "./dist/composables/*.js"
+    },
+    "./style.css": "./dist/daiyosei-ui.css"
+  },
+  "sideEffects": ["**/*.css"],
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/clean-types.mjs && vite build && vue-tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.4.0",
+    "vue-tsc": "^2.0.0"
+  }
+}
