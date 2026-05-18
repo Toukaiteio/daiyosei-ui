@@ -1,29 +1,44 @@
 <template>
   <svg class="scribble-svg" viewBox="0 0 100 100">
     <path
-      v-for="(framePath, frameIndex) in framePaths"
+      v-for="(framePath, frameIndex) in resolvedFrames"
       :key="frameIndex"
       class="scribble-path"
-      :class="`scribble-frame-${frameIndex}`"
+      :class="{ 'scribble-active': activeFrame === frameIndex }"
       :d="framePath"
     />
   </svg>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps<{
   pathData?: string
   framePaths?: string[]
 }>()
 
-const framePaths = computed(() => {
-  if (props.framePaths?.length) {
-    return props.framePaths
-  }
+const resolvedFrames = computed(() => {
+  if (props.framePaths?.length) return props.framePaths
   if (!props.pathData) return []
   return [props.pathData]
+})
+
+const activeFrame = ref(0)
+let intervalId: number | null = null
+
+onMounted(() => {
+  if (resolvedFrames.value.length > 1) {
+    intervalId = window.setInterval(() => {
+      activeFrame.value = (activeFrame.value + 1) % resolvedFrames.value.length
+    }, 300)
+  } else {
+    activeFrame.value = 0
+  }
+})
+
+onUnmounted(() => {
+  if (intervalId !== null) clearInterval(intervalId)
 })
 </script>
 
@@ -44,35 +59,8 @@ const framePaths = computed(() => {
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-  will-change: opacity;
 }
-.scribble-frame-0 {
-  animation: scribble-frame-0-show 0.9s linear infinite;
-}
-.scribble-frame-1 {
-  animation: scribble-frame-1-show 0.9s linear infinite;
-}
-.scribble-frame-2 {
-  animation: scribble-frame-2-show 0.9s linear infinite;
-}
-@keyframes scribble-frame-0-show {
-  0% { opacity: 1; }
-  33.333% { opacity: 1; }
-  33.334% { opacity: 0; }
-  100% { opacity: 0; }
-}
-@keyframes scribble-frame-1-show {
-  0% { opacity: 0; }
-  33.333% { opacity: 0; }
-  33.334% { opacity: 1; }
-  66.666% { opacity: 1; }
-  66.667% { opacity: 0; }
-  100% { opacity: 0; }
-}
-@keyframes scribble-frame-2-show {
-  0% { opacity: 0; }
-  66.666% { opacity: 0; }
-  66.667% { opacity: 1; }
-  100% { opacity: 0; }
+.scribble-path.scribble-active {
+  opacity: 1;
 }
 </style>

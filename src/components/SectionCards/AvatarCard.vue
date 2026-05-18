@@ -124,7 +124,7 @@ defineProps<{
   background-color: var(--text-primary);
   opacity: 0.95;
 }
-:deep(.avatar-card.active .scribble-path) {
+.avatar-card.active :deep(.scribble-path) {
   stroke: var(--accent-orange);
   stroke-width: 3.5px;
 }
