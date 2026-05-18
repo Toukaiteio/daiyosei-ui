@@ -29,6 +29,7 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/clean-types.mjs && vite build && vue-tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
+    "build:playground": "vite build --config vite.playground.config.ts",
     "preview": "vite preview"
   },
   "dependencies": {
