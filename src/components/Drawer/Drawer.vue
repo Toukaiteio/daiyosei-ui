@@ -128,20 +128,6 @@ watch(() => props.modelValue, (val) => {
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Red Margin Safety line on the left of loose-leaf pages */
-.drawer-panel::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 54px;
-  width: 2px;
-  border-left: 2px dashed var(--accent-orange);
-  opacity: 0.45;
-  pointer-events: none;
-  z-index: 2;
-}
-
 /* Column of punched binder holes along the left ripped edge */
 .binder-holes {
   position: absolute;

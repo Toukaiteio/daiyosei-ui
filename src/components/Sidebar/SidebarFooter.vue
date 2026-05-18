@@ -1,7 +1,8 @@
 <template>
   <div class="sidebar-footer">
     <div class="footer-rule"></div>
-    <div class="footer-text">© 2026 DAIYOSEI. SKETCHBOOK.</div>
+    <div class="footer-text">© 2026 DAIYOSEI.</div>
+    <div class="footer-text footer-text--sub">Build with Gemini,GPT,Deepseek.</div>
   </div>
 </template>
 
