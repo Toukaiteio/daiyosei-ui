@@ -78,8 +78,7 @@ function isSelected(y: number, m: number, d: number) {
 }
 
 function selectDate(day: number) {
-  const d = new Date(year.value, month.value - 1, day)
-  const iso = d.toISOString().split('T')[0]
+  const iso = `${year.value}-${String(month.value).padStart(2, '0')}-${String(day).padStart(2, '0')}`
   emit('update:modelValue', iso)
 }
 

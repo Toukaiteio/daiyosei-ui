@@ -51,14 +51,16 @@ defineEmits<{
   bottom: 0;
   right: -12px;
   width: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20'%3E%3Cpath d='M0,0 Q6,3 12,10 Q6,17 0,20 Z' fill='%23ffffff'/%3E%3Cpath d='M0,0 Q6,3 12,10 Q6,17 0,20' fill='none' stroke='rgba(79,121,163,0.18)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: repeat-y;
-  background-position: right;
-  background-size: 12px 20px;
+  background-color: var(--bg-secondary);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20'%3E%3Cpath d='M0,0 Q6,3 12,10 Q6,17 0,20 Z' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-y;
+  -webkit-mask-position: right top;
+  -webkit-mask-size: 12px 20px;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20'%3E%3Cpath d='M0,0 Q6,3 12,10 Q6,17 0,20 Z' fill='white'/%3E%3C/svg%3E");
+  mask-repeat: repeat-y;
+  mask-position: right top;
+  mask-size: 12px 20px;
   pointer-events: none;
   z-index: 11;
-}
-:global(.theme-dark) .sidebar::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20'%3E%3Cpath d='M0,0 Q6,3 12,10 Q6,17 0,20 Z' fill='%23121c24'/%3E%3Cpath d='M0,0 Q6,3 12,10 Q6,17 0,20' fill='none' stroke='rgba(92,158,130,0.22)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 </style>

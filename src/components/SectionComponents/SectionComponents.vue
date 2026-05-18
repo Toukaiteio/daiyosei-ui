@@ -133,29 +133,56 @@ function onStickerClick() {
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
+.dials-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  background-color: var(--border-alpha);
+  border: 2px dashed var(--card-border);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  padding: 24px 18px;
+  transform: rotate(-0.5deg) skewX(0.3deg);
+}
+.card-note {
+  margin-top: -16px;
+  margin-bottom: 2px;
+  font-size: 16px;
+  transform: rotate(-1.5deg);
+  display: inline-block;
+}
 .control-row {
   display: flex;
   gap: 16px;
 }
 .btn-drawer-open {
   width: 100%;
-  background: none;
-  border: 2.5px dashed var(--card-border);
+  background: transparent;
   color: var(--text-primary);
-  padding: 12px 20px;
-  font-size: 10px;
+  border: 2px solid var(--text-primary);
+  padding: 14px 20px;
+  font-family: inherit;
+  font-size: 13px;
   cursor: pointer;
-  border-radius: 12px 225px 8px 215px / 215px 8px 225px 12px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 2px 3px 0px var(--border-alpha);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
 }
 .btn-drawer-open:hover {
-  border-color: var(--accent-orange);
-  border-style: solid;
-  color: var(--accent-orange);
-  transform: scale(1.03) rotate(-1deg);
   background-color: var(--border-alpha);
+  color: var(--text-primary);
+  transform: scale(1.03) rotate(-1deg);
+  border-style: solid;
+}
+.btn-drawer-open:active {
+  background-color: var(--accent-orange);
+  border-color: var(--accent-orange);
+  color: var(--bg-primary);
+  transform: scale(0.97) rotate(0deg);
 }
 .drawer-section {
   display: flex;
