@@ -1,9 +1,9 @@
 <template>
   <Teleport to="body">
-    <Transition name="drawer">
-      <div v-if="modelValue" class="drawer-wrapper" @click.self="close">
+    <Transition :name="transitionName">
+      <div v-if="modelValue" :class="['drawer-wrapper', `is-${placement}`]" @click.self="close">
         <div class="drawer-overlay" @click="close"></div>
-        <div class="drawer-panel" ref="panelRef" role="dialog" tabindex="-1">
+        <div :class="['drawer-panel', `is-${placement}`]" ref="panelRef" role="dialog" tabindex="-1">
           <!-- Binder holes simulating a ripped-out loose-leaf sketchbook page -->
           <div class="binder-holes">
             <div v-for="i in 12" :key="i" class="binder-hole"></div>
@@ -27,11 +27,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: boolean
   title?: string
+  placement?: 'left' | 'right' | 'top' | 'bottom'
 }>()
 
 const emit = defineEmits<{
@@ -39,6 +40,8 @@ const emit = defineEmits<{
 }>()
 
 const panelRef = ref<HTMLElement | null>(null)
+const placement = computed(() => props.placement ?? 'right')
+const transitionName = computed(() => `drawer-${placement.value}`)
 
 function close() {
   emit('update:modelValue', false)
@@ -74,7 +77,20 @@ watch(() => props.modelValue, (val) => {
   width: 100vw; height: 100vh;
   z-index: 10000;
   display: flex;
+}
+.drawer-wrapper.is-right {
   justify-content: flex-end;
+}
+.drawer-wrapper.is-left {
+  justify-content: flex-start;
+}
+.drawer-wrapper.is-top {
+  justify-content: center;
+  align-items: flex-start;
+}
+.drawer-wrapper.is-bottom {
+  justify-content: center;
+  align-items: flex-end;
 }
 .drawer-overlay {
   position: absolute;
@@ -105,6 +121,27 @@ watch(() => props.modelValue, (val) => {
               background-image 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   padding-left: 20px;
 }
+.drawer-panel.is-left,
+.drawer-panel.is-right {
+  width: 530px;
+  max-width: 90vw;
+  height: 100%;
+}
+.drawer-panel.is-top,
+.drawer-panel.is-bottom {
+  width: min(980px, 96vw);
+  max-width: 96vw;
+  height: min(72vh, 680px);
+  max-height: 92vh;
+}
+.drawer-panel.is-top {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.drawer-panel.is-bottom {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
 
 /* Torn Edge Mask on the Left Edge of the Page */
 .drawer-panel::before {
@@ -127,6 +164,10 @@ watch(() => props.modelValue, (val) => {
   z-index: 11;
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.drawer-panel.is-top::before,
+.drawer-panel.is-bottom::before {
+  display: none;
+}
 
 /* Column of punched binder holes along the left ripped edge */
 .binder-holes {
@@ -142,6 +183,10 @@ watch(() => props.modelValue, (val) => {
   pointer-events: none;
   z-index: 3;
   padding: 40px 0;
+}
+.drawer-panel.is-top .binder-holes,
+.drawer-panel.is-bottom .binder-holes {
+  display: none;
 }
 .binder-hole {
   width: 11px;
@@ -232,20 +277,50 @@ watch(() => props.modelValue, (val) => {
 }
 
 /* Physical Damped Slide Transition */
-.drawer-enter-active,
-.drawer-leave-active {
+.drawer-right-enter-active,
+.drawer-right-leave-active,
+.drawer-left-enter-active,
+.drawer-left-leave-active,
+.drawer-top-enter-active,
+.drawer-top-leave-active,
+.drawer-bottom-enter-active,
+.drawer-bottom-leave-active {
   transition: opacity 0.35s ease;
 }
-.drawer-enter-active .drawer-panel,
-.drawer-leave-active .drawer-panel {
+.drawer-right-enter-active .drawer-panel,
+.drawer-right-leave-active .drawer-panel,
+.drawer-left-enter-active .drawer-panel,
+.drawer-left-leave-active .drawer-panel,
+.drawer-top-enter-active .drawer-panel,
+.drawer-top-leave-active .drawer-panel,
+.drawer-bottom-enter-active .drawer-panel,
+.drawer-bottom-leave-active .drawer-panel {
   transition: transform 0.48s cubic-bezier(0.25, 0.8, 0.25, 1); /* Physical paper damping */
 }
-.drawer-enter-from,
-.drawer-leave-to {
+.drawer-right-enter-from,
+.drawer-right-leave-to,
+.drawer-left-enter-from,
+.drawer-left-leave-to,
+.drawer-top-enter-from,
+.drawer-top-leave-to,
+.drawer-bottom-enter-from,
+.drawer-bottom-leave-to {
   opacity: 0;
 }
-.drawer-enter-from .drawer-panel,
-.drawer-leave-to .drawer-panel {
+.drawer-right-enter-from .drawer-panel,
+.drawer-right-leave-to .drawer-panel {
   transform: translateX(100%) rotate(0.6deg); /* Subtle paper angle while entering */
+}
+.drawer-left-enter-from .drawer-panel,
+.drawer-left-leave-to .drawer-panel {
+  transform: translateX(-100%) rotate(-0.6deg);
+}
+.drawer-top-enter-from .drawer-panel,
+.drawer-top-leave-to .drawer-panel {
+  transform: translateY(-100%) rotate(-0.2deg);
+}
+.drawer-bottom-enter-from .drawer-panel,
+.drawer-bottom-leave-to .drawer-panel {
+  transform: translateY(100%) rotate(0.2deg);
 }
 </style>
