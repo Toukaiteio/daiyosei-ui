@@ -38,3 +38,8 @@ export interface TableColumn {
   key: string
   label: string
 }
+
+export interface SidebarFooterContent {
+  copyright: string
+  tagline: string
+}

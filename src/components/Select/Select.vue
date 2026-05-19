@@ -95,7 +95,7 @@ onUnmounted(() => {
 .daiyo-select-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 .daiyo-select-header {
   display: flex;
@@ -108,13 +108,15 @@ onUnmounted(() => {
 }
 .daiyo-select-wrapper {
   position: relative;
-  border: 2px dashed var(--card-border);
-  border-radius: 12px 225px 8px 215px / 215px 8px 225px 12px;
+  border: 2px solid var(--card-border);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
   background: var(--card-bg);
-  padding: 2px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 2px 2px 0 var(--card-border);
 }
 .daiyo-select-wrapper--open {
-  border-color: var(--accent-orange);
+  border-color: var(--text-primary);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--text-primary) 30%, transparent);
 }
 .daiyo-select-trigger {
   width: 100%;
@@ -124,31 +126,40 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
+  padding: 10px 14px;
   font-size: 10px;
   outline: none;
   cursor: pointer;
+  transform: rotate(-0.3deg);
 }
 .daiyo-select-arrow {
-  transition: transform 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: var(--accent-orange);
+  font-size: 14px;
+  line-height: 1;
 }
 .daiyo-select-arrow--open {
   transform: rotate(180deg);
 }
 .daiyo-select-trigger:disabled {
-  opacity: 0.55;
+  opacity: 0.45;
   cursor: not-allowed;
 }
+
+/* Dropdown: lined notebook paper */
 .daiyo-select-dropdown {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% + 6px);
+  left: -2px;
+  right: -2px;
+  top: calc(100% + 8px);
   z-index: 30;
-  border: 2px solid var(--card-border);
-  border-radius: 14px 16px 10px 18px / 18px 10px 16px 14px;
-  background: var(--bg-secondary);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  border: 2px solid var(--text-primary);
+  border-radius: 14px 8px 18px 10px / 10px 18px 8px 14px;
+  background-color: var(--bg-secondary);
+  background-image: linear-gradient(var(--grid-color) 1px, transparent 1px);
+  background-size: 100% 32px;
+  background-position: 0 16px;
+  box-shadow: 4px 5px 0 color-mix(in srgb, var(--text-primary) 18%, transparent);
   overflow: hidden;
 }
 .daiyo-select-option {
@@ -157,28 +168,44 @@ onUnmounted(() => {
   background: transparent;
   color: var(--text-primary);
   text-align: left;
-  padding: 10px 12px;
+  padding: 10px 14px 10px 10px;
   font-size: 10px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  position: relative;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
 }
 .daiyo-select-option + .daiyo-select-option {
-  border-top: 1px dashed var(--border-alpha);
+  border-top: 1px solid var(--grid-color);
 }
 .daiyo-select-option:hover {
-  background: var(--border-alpha);
+  background: color-mix(in srgb, var(--accent-orange) 10%, transparent);
+  color: var(--text-primary);
 }
 .daiyo-select-option--active {
-  background: var(--accent-orange);
-  color: var(--bg-primary);
+  color: var(--accent-orange);
+  font-weight: 700;
 }
+.daiyo-select-option--active::after {
+  content: '✓';
+  position: absolute;
+  right: 12px;
+  color: var(--accent-orange);
+  font-size: 10px;
+}
+
 .select-fade-enter-active,
 .select-fade-leave-active {
-  transition: opacity 0.16s ease, transform 0.16s ease;
+  transition: opacity 0.22s cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 0.22s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: top;
 }
 .select-fade-enter-from,
 .select-fade-leave-to {
   opacity: 0;
-  transform: translateY(-6px);
+  transform: scaleY(0.9) translateY(-6px) rotate(-0.3deg);
 }
 </style>

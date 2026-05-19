@@ -1,10 +1,18 @@
 <template>
   <div class="sidebar-footer">
     <div class="footer-rule"></div>
-    <div class="footer-text">© 2026 DAIYOSEI.</div>
-    <div class="footer-text footer-text--sub">Build with Gemini,GPT,Deepseek.</div>
+    <div class="footer-text">{{ content.copyright }}</div>
+    <div class="footer-text footer-text--sub">{{ content.tagline }}</div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { SidebarFooterContent } from '../../types'
+
+defineProps<{
+  content: SidebarFooterContent
+}>()
+</script>
 
 <style scoped>
 .sidebar-footer .footer-rule {

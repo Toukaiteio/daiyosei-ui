@@ -3,6 +3,18 @@
   "version": "1.0.0",
   "description": "A stylized Vue 3 UI component library inspired by hand-drawn sketchbook aesthetics.",
   "license": "MIT",
+  "author": {
+    "name": "daiyosei",
+    "email": "mcacsfrom@qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Toukaiteio/daiyosei-ui"
+  },
+  "homepage": "https://daiyosei-ui.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/Toukaiteio/daiyosei-ui/issues"
+  },
   "type": "module",
   "files": ["dist"],
   "main": "./dist/daiyosei-ui.js",

@@ -2,9 +2,10 @@
   <div>
     <GlobalOverlays />
     <div class="app-container">
-      <Sidebar
+      <PlaygroundSidebar
         :theme="theme"
         :effects="effects"
+        :footer-content="playgroundSidebarFooter"
         @update:theme="onThemeChange"
         @update:effects="onEffectsChange"
       />
@@ -21,12 +22,12 @@
 
 <script setup lang="ts">
 import { watch, onMounted } from 'vue'
-import type { Theme, EffectsState } from './types'
+import type { Theme, EffectsState, SidebarFooterContent } from './types'
 import { useTheme } from './composables/useTheme'
 import { useEffects } from './composables/useEffects'
 import { useI18n } from './composables/useI18n'
 import GlobalOverlays from './components/GlobalOverlays/GlobalOverlays.vue'
-import Sidebar from './components/Sidebar/Sidebar.vue'
+import PlaygroundSidebar from './components/Sidebar/PlaygroundSidebar.vue'
 import TopNav from './components/TopNav/TopNav.vue'
 import SectionHero from './components/SectionHero/SectionHero.vue'
 import SectionCards from './components/SectionCards/SectionCards.vue'
@@ -41,6 +42,10 @@ onMounted(() => {
 })
 
 const theme = currentTheme
+const playgroundSidebarFooter: SidebarFooterContent = {
+  copyright: '© 2026 DAIYOSEI.',
+  tagline: 'Build with Gemini,GPT,Deepseek.',
+}
 
 function onThemeChange(value: Theme) {
   setTheme(value)

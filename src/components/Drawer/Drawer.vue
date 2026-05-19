@@ -96,8 +96,7 @@ watch(() => props.modelValue, (val) => {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(12, 21, 28, 0.45); /* Soft, warm dark overlay without sluggish GPU blur filters */
-  transition: opacity 0.3s ease;
+  background: rgba(12, 21, 28, 0.45);
 }
 .drawer-panel {
   position: relative;
@@ -105,7 +104,6 @@ watch(() => props.modelValue, (val) => {
   max-width: 90vw;
   height: 100%;
   
-  /* Lined Notebook Paper Background: Solid paper background + ruled lines */
   background-color: var(--bg-secondary);
   background-image: linear-gradient(var(--grid-color) 1px, transparent 1px);
   background-size: 100% 32px;
@@ -116,23 +114,23 @@ watch(() => props.modelValue, (val) => {
   z-index: 1;
   box-shadow: -15px 0 35px rgba(4, 8, 12, 0.2);
   will-change: transform;
-  overflow: visible; /* Allow left torn edge mask and shadow to overlay cleanly */
+  overflow: visible;
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               background-image 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   padding-left: 20px;
 }
-.drawer-panel.is-left,
-.drawer-panel.is-right {
-  width: 530px;
-  max-width: 90vw;
-  height: 100%;
+.drawer-panel.is-left {
+  padding-left: 0;
+  padding-right: 20px;
 }
 .drawer-panel.is-top,
 .drawer-panel.is-bottom {
-  width: min(980px, 96vw);
-  max-width: 96vw;
+  width: 100vw;
+  max-width: 100vw;
   height: min(72vh, 680px);
   max-height: 92vh;
+  padding-left: 0;
+  background-size: 100% 32px;
 }
 .drawer-panel.is-top {
   border-bottom-left-radius: 12px;
@@ -143,38 +141,87 @@ watch(() => props.modelValue, (val) => {
   border-top-right-radius: 12px;
 }
 
-/* Torn Edge Mask on the Left Edge of the Page */
-.drawer-panel::before {
+/* Torn edge — right drawer: left side */
+.drawer-panel.is-right::before {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 0; bottom: 0;
   left: -11px;
   width: 12px;
   background-color: var(--bg-secondary);
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20'%3E%3Cpath d='M12,0 Q6,3 0,10 Q6,17 12,20 Z' fill='white'/%3E%3C/svg%3E");
   -webkit-mask-repeat: repeat-y;
-  -webkit-mask-position: left top;
   -webkit-mask-size: 12px 20px;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20'%3E%3Cpath d='M12,0 Q6,3 0,10 Q6,17 12,20 Z' fill='white'/%3E%3C/svg%3E");
   mask-repeat: repeat-y;
-  mask-position: left top;
   mask-size: 12px 20px;
   pointer-events: none;
   z-index: 11;
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.drawer-panel.is-top::before,
-.drawer-panel.is-bottom::before {
-  display: none;
+
+/* Torn edge — left drawer: right side */
+.drawer-panel.is-left::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  right: -11px;
+  width: 12px;
+  background-color: var(--bg-secondary);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20'%3E%3Cpath d='M0,0 Q6,3 12,10 Q6,17 0,20 Z' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-y;
+  -webkit-mask-size: 12px 20px;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20' viewBox='0 0 12 20'%3E%3Cpath d='M0,0 Q6,3 12,10 Q6,17 0,20 Z' fill='white'/%3E%3C/svg%3E");
+  mask-repeat: repeat-y;
+  mask-size: 12px 20px;
+  pointer-events: none;
+  z-index: 11;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Column of punched binder holes along the left ripped edge */
+/* Torn edge — top drawer: bottom side, teeth point downward (outward) */
+.drawer-panel.is-top::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -11px;
+  height: 12px;
+  background-color: var(--bg-secondary);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M0,0 Q3,6 10,12 Q17,6 20,0 Z' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-x;
+  -webkit-mask-size: 20px 12px;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M0,0 Q3,6 10,12 Q17,6 20,0 Z' fill='white'/%3E%3C/svg%3E");
+  mask-repeat: repeat-x;
+  mask-size: 20px 12px;
+  pointer-events: none;
+  z-index: 11;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Torn edge — bottom drawer: top side, teeth point upward (outward) */
+.drawer-panel.is-bottom::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: -11px;
+  height: 12px;
+  background-color: var(--bg-secondary);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M0,12 Q3,6 10,0 Q17,6 20,12 Z' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-x;
+  -webkit-mask-size: 20px 12px;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M0,12 Q3,6 10,0 Q17,6 20,12 Z' fill='white'/%3E%3C/svg%3E");
+  mask-repeat: repeat-x;
+  mask-size: 20px 12px;
+  pointer-events: none;
+  z-index: 11;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Binder holes — left/right: vertical column on the inner edge */
 .binder-holes {
   position: absolute;
   left: 14px;
-  top: 0;
-  bottom: 0;
+  top: 0; bottom: 0;
   width: 16px;
   display: flex;
   flex-direction: column;
@@ -184,9 +231,27 @@ watch(() => props.modelValue, (val) => {
   z-index: 3;
   padding: 40px 0;
 }
+.drawer-panel.is-left .binder-holes {
+  left: auto;
+  right: 14px;
+}
+
+/* Binder holes — top/bottom: horizontal row on the inner edge */
 .drawer-panel.is-top .binder-holes,
 .drawer-panel.is-bottom .binder-holes {
-  display: none;
+  left: 0; right: 0;
+  top: auto; bottom: 14px;
+  width: auto; height: 16px;
+  flex-direction: row;
+  padding: 0 40px;
+}
+.drawer-panel.is-top .binder-holes {
+  bottom: 14px;
+  top: auto;
+}
+.drawer-panel.is-bottom .binder-holes {
+  top: 14px;
+  bottom: auto;
 }
 .binder-hole {
   width: 11px;
@@ -207,6 +272,13 @@ watch(() => props.modelValue, (val) => {
   align-items: center;
   padding: 32px 36px 18px 56px;
   border-bottom: 2px dashed var(--border-alpha);
+}
+.drawer-panel.is-left .drawer-header {
+  padding: 32px 56px 18px 36px;
+}
+.drawer-panel.is-top .drawer-header,
+.drawer-panel.is-bottom .drawer-header {
+  padding: 24px 36px 18px 36px;
 }
 .drawer-title {
   display: inline-flex;
@@ -275,6 +347,13 @@ watch(() => props.modelValue, (val) => {
   flex-direction: column;
   gap: 36px;
 }
+.drawer-panel.is-left .drawer-body {
+  padding: 24px 56px 40px 36px;
+}
+.drawer-panel.is-top .drawer-body,
+.drawer-panel.is-bottom .drawer-body {
+  padding: 24px 36px 40px 36px;
+}
 
 /* Physical Damped Slide Transition */
 .drawer-right-enter-active,
@@ -285,7 +364,7 @@ watch(() => props.modelValue, (val) => {
 .drawer-top-leave-active,
 .drawer-bottom-enter-active,
 .drawer-bottom-leave-active {
-  transition: opacity 0.35s ease;
+  transition: opacity 0.42s ease;
 }
 .drawer-right-enter-active .drawer-panel,
 .drawer-right-leave-active .drawer-panel,
@@ -295,7 +374,8 @@ watch(() => props.modelValue, (val) => {
 .drawer-top-leave-active .drawer-panel,
 .drawer-bottom-enter-active .drawer-panel,
 .drawer-bottom-leave-active .drawer-panel {
-  transition: transform 0.48s cubic-bezier(0.25, 0.8, 0.25, 1); /* Physical paper damping */
+  transition: transform 0.42s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform;
 }
 .drawer-right-enter-from,
 .drawer-right-leave-to,
@@ -309,18 +389,18 @@ watch(() => props.modelValue, (val) => {
 }
 .drawer-right-enter-from .drawer-panel,
 .drawer-right-leave-to .drawer-panel {
-  transform: translateX(100%) rotate(0.6deg); /* Subtle paper angle while entering */
+  transform: translateX(100%);
 }
 .drawer-left-enter-from .drawer-panel,
 .drawer-left-leave-to .drawer-panel {
-  transform: translateX(-100%) rotate(-0.6deg);
+  transform: translateX(-100%);
 }
 .drawer-top-enter-from .drawer-panel,
 .drawer-top-leave-to .drawer-panel {
-  transform: translateY(-100%) rotate(-0.2deg);
+  transform: translateY(-100%);
 }
 .drawer-bottom-enter-from .drawer-panel,
 .drawer-bottom-leave-to .drawer-panel {
-  transform: translateY(100%) rotate(0.2deg);
+  transform: translateY(100%);
 }
 </style>

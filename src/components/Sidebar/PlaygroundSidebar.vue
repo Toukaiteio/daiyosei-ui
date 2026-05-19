@@ -1,10 +1,35 @@
 <template>
-  <aside class="sidebar">
-    <slot></slot>
+  <aside class="sidebar font-tech">
+    <div>
+      <SidebarBrand />
+      <ThemeSelector :model-value="theme" @update:model-value="$emit('update:theme', $event)" />
+      <EffectToggles :model-value="effects" @update:model-value="$emit('update:effects', $event)" />
+    </div>
+    <div>
+      <StatusHud />
+      <SidebarFooter :content="footerContent" />
+    </div>
   </aside>
 </template>
 
 <script setup lang="ts">
+import type { Theme, EffectsState, SidebarFooterContent } from '../../types'
+import SidebarBrand from './SidebarBrand.vue'
+import ThemeSelector from './ThemeSelector.vue'
+import EffectToggles from './EffectToggles.vue'
+import StatusHud from './StatusHud.vue'
+import SidebarFooter from './SidebarFooter.vue'
+
+defineProps<{
+  theme: Theme
+  effects: EffectsState
+  footerContent: SidebarFooterContent
+}>()
+
+defineEmits<{
+  'update:theme': [value: Theme]
+  'update:effects': [value: EffectsState]
+}>()
 </script>
 
 <style scoped>

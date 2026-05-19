@@ -7,7 +7,7 @@
     />
     <div class="components-grid">
       <!-- Card A: Synthesizer Dials -->
-      <ComponentCard :title="copy.components.cardATitle">
+      <Card :title="copy.components.cardATitle">
         <div :class="['handwritten-note', 'card-note', copy.hero.handwrittenClass]">{{ copy.components.cardANote }}</div>
         <div class="dials-row">
           <DialKnob dial-id="dial-freq" :label="copy.components.freqLabel" :min="20" :max="2000" :initial="440" unit="Hz" />
@@ -16,10 +16,10 @@
         </div>
         <EqVisualizer />
         <ToySliders />
-      </ComponentCard>
+      </Card>
 
       <!-- Card B: Interactive Doodles -->
-      <ComponentCard :title="copy.components.cardBTitle">
+      <Card :title="copy.components.cardBTitle">
         <div :class="['handwritten-note', 'card-note', copy.hero.handwrittenClass]">{{ copy.components.cardBNote }}</div>
         <div class="control-row">
           <CrayonButton @click="onCrayonClick" />
@@ -31,9 +31,10 @@
           :model-value="spell"
           @update:model-value="spell = $event"
         />
-        <AlertStrip
+        <Alert
           :title="copy.components.alertTitle"
           :description="copy.components.alertDescription"
+          variant="warning"
         />
         <div class="control-row">
           <button class="btn btn-drawer-open font-tech" @click="drawerOpen = true">
@@ -45,9 +46,9 @@
           label="DRAWER PLACEMENT"
           :options="drawerPlacementOptions"
         />
-      </ComponentCard>
+      </Card>
 
-      <ComponentCard title="COMMON UI KIT / PLAYGROUND PREVIEW">
+      <Card title="COMMON UI KIT / PLAYGROUND PREVIEW">
         <div :class="['handwritten-note', 'card-note', copy.hero.handwrittenClass]">
           reusable package components preview
         </div>
@@ -109,9 +110,14 @@
             This is the project dialog component, triggered by button click.
           </div>
         </Modal>
-      </ComponentCard>
+      </Card>
 
-      <ComponentCard title="MENU / UPLOAD PRESETS">
+      <Card title="BREADCRUMB / NAVIGATION">
+        <Breadcrumb :items="breadcrumbItems" @navigate="onBreadcrumbNavigate" />
+        <Breadcrumb :items="breadcrumbItems.slice(0, 2)" separator="›" style="margin-top: 12px" />
+      </Card>
+
+      <Card title="MENU / UPLOAD PRESETS">
         <div :class="['handwritten-note', 'card-note', copy.hero.handwrittenClass]">
           advanced interaction presets
         </div>
@@ -136,9 +142,9 @@
         </Menu>
 
         <FileUpload label="ASSET UPLOADER" multiple @change="onFilesChanged" />
-      </ComponentCard>
+      </Card>
 
-      <ComponentCard title="MEDIA / LIST / FILTER PRESETS">
+      <Card title="MEDIA / LIST / FILTER PRESETS">
         <div :class="['handwritten-note', 'card-note', copy.hero.handwrittenClass]">
           lazy image cards, infinite list and filter controls
         </div>
@@ -182,9 +188,9 @@
         </InfiniteScroll>
 
         <Pagination v-model="photoPage" :total-pages="totalPhotoPages" />
-      </ComponentCard>
+      </Card>
 
-      <ComponentCard title="NAVIGATION PRESETS">
+      <Card title="NAVIGATION PRESETS">
         <div :class="['handwritten-note', 'card-note', copy.hero.handwrittenClass]">
           standalone header + side navigation components
         </div>
@@ -198,7 +204,7 @@
             <div>side: {{ demoSideNav }}</div>
           </div>
         </div>
-      </ComponentCard>
+      </Card>
     </div>
 
     <Drawer v-model="drawerOpen" :title="copy.drawer.drawerTitle" :placement="drawerPlacement">
@@ -222,14 +228,15 @@
 import { computed, ref, watch } from 'vue'
 import { useThemeCopy } from '../../composables'
 import SectionHeader from '../SectionCards/SectionHeader.vue'
+import Card from '../Card/Card.vue'
 import ComponentCard from './ComponentCard.vue'
-import DialKnob from './DialKnob.vue'
+import DialKnob from '../../components/DialKnob/DialKnob.vue'
 import EqVisualizer from './EqVisualizer.vue'
 import ToySliders from './ToySliders.vue'
 import CrayonButton from './CrayonButton.vue'
 import StickerButton from './StickerButton.vue'
 import TechInput from './TechInput.vue'
-import AlertStrip from './AlertStrip.vue'
+import Alert from '../../components/Alert/Alert.vue'
 import Drawer from '../Drawer/Drawer.vue'
 import DatePicker from '../DatePicker/DatePicker.vue'
 import Table from '../Table/Table.vue'
@@ -245,6 +252,7 @@ import Badge from '../Badge/Badge.vue'
 import Modal from '../Modal/Modal.vue'
 import Menu from '../Menu/Menu.vue'
 import SubMenu from '../SubMenu/SubMenu.vue'
+import Breadcrumb from '../Breadcrumb/Breadcrumb.vue'
 import FileUpload from '../FileUpload/FileUpload.vue'
 import SketchbookPhotoCard from '../SketchbookPhotoCard/SketchbookPhotoCard.vue'
 import ImageCard from '../ImageCard/ImageCard.vue'
@@ -260,6 +268,16 @@ const { copy } = useThemeCopy()
 
 const spell = ref(copy.value.components.spell)
 const drawerOpen = ref(false)
+
+const breadcrumbItems = [
+  { label: 'HOME', href: '/' },
+  { label: 'LIBRARY', href: '/library' },
+  { label: 'COMPONENTS', href: '/library/components' },
+  { label: 'BREADCRUMB' },
+]
+function onBreadcrumbNavigate(item: { label: string; href?: string }) {
+  console.log('navigate:', item)
+}
 const selectedDate = ref('')
 const selectedColor = ref('#c85a5a')
 const demoInput = ref('Daiyosei UI Kit')
